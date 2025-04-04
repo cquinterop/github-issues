@@ -12,4 +12,15 @@ export default defineConfig([
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   eslintConfigPrettier,
+	{
+		rules: {
+			"prettier/prettier": ["error"],
+			"react/react-in-jsx-scope": "off",
+			'no-unused-vars': 'off',
+			'@typescript-eslint/no-unused-vars': 'error',
+			'@typescript-eslint/sort-type-constituents': 'error',
+			'react-hooks/rules-of-hooks': 'error',
+			'react/jsx-sort-props': ['warn', { callbacksLast: true, multiline: 'first', shorthandFirst: true }],
+		},
+	},
 ]);
