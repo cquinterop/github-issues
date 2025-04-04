@@ -1,0 +1,5 @@
+# Ignore artifacts:
+dist
+build
+coverage
+src/__generated__
