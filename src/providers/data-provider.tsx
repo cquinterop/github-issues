@@ -1,15 +1,7 @@
 import { type PropsWithChildren, useMemo } from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, ApolloProvider } from '@apollo/client';
 import { GITHUB_API_KEY, VITE_API_BASE_URL } from '@/config/env';
-
-export const cache = new InMemoryCache(/* {
-	typePolicies: {
-		Query: {
-			fields: {
-			},
-		},
-	},
-} */);
+import { cache } from '@/lib/apollo-cache';
 
 const createApolloClient = () => {
 	return new ApolloClient({

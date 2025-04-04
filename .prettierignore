@@ -1,5 +1,7 @@
 # Ignore artifacts:
+/*.*
 dist
 build
 coverage
 src/__generated__
+src/components/ui

@@ -1,24 +1,34 @@
-
+import 'dotenv/config';
 import type { CodegenConfig } from '@graphql-codegen/cli';
 import { VITE_API_BASE_URL, GITHUB_API_KEY } from './src/config/env';
 
 const config: CodegenConfig = {
-  overwrite: true,
-  schema: [
+	overwrite: true,
+	schema: [
 		{
 			[`${VITE_API_BASE_URL}/graphql`]: {
 				headers: {
 					Authorization: `Bearer ${GITHUB_API_KEY}`,
+					'User-Agent': 'IssueTracker',
 				},
 			},
 		},
 	],
-  documents: "src/**/*.tsx",
-  generates: {
-		'src/__generated__/types.ts': {
-			plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
+	documents: ['src/pages/**/*.tsx'],
+	generates: {
+		'./src/__generated__/': {
+			preset: 'client',
+			presetConfig: {
+				gqlTagName: 'gql',
+			},
 		},
-  },
+		'./src/__generated__/graphql.ts': {
+			plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
+			config: {
+				withHooks: true,
+			},
+		},
+	},
 	ignoreNoDocuments: true,
 };
 
