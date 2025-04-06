@@ -14,10 +14,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n\t  fragment IssueCard on Issue {\n      id\n      number\n      title\n      state\n      createdAt\n      comments {\n        totalCount\n      }\n      author {\n        login\n        avatarUrl\n      }\n    }\n  ": typeof types.IssueCardFragmentDoc,
+    "\n\t\tfragment IssueCard on Issue {\n\t\t\tid\n\t\t\ttitle\n\t\t\tnumber\n\t\t\tstate\n\t\t\tbody\n\t\t\tcreatedAt\n\t\t\tcomments {\n\t\t\t\ttotalCount\n\t\t\t}\n\t\t\tauthor {\n\t\t\t\tavatarUrl(size: 32)\n\t\t\t\tlogin\n\t\t\t}\n\t\t\tlabels(first: 5) {\n\t\t\t\tnodes {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tcolor\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t": typeof types.IssueCardFragmentDoc,
+    "\n\t\tfragment IssuePagination on PageInfo {\n\t\t\thasPreviousPage\n\t\t\thasNextPage\n\t\t\tstartCursor\n\t\t\tendCursor\n\t\t}\n\t": typeof types.IssuePaginationFragmentDoc,
 };
 const documents: Documents = {
-    "\n\t  fragment IssueCard on Issue {\n      id\n      number\n      title\n      state\n      createdAt\n      comments {\n        totalCount\n      }\n      author {\n        login\n        avatarUrl\n      }\n    }\n  ": types.IssueCardFragmentDoc,
+    "\n\t\tfragment IssueCard on Issue {\n\t\t\tid\n\t\t\ttitle\n\t\t\tnumber\n\t\t\tstate\n\t\t\tbody\n\t\t\tcreatedAt\n\t\t\tcomments {\n\t\t\t\ttotalCount\n\t\t\t}\n\t\t\tauthor {\n\t\t\t\tavatarUrl(size: 32)\n\t\t\t\tlogin\n\t\t\t}\n\t\t\tlabels(first: 5) {\n\t\t\t\tnodes {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tcolor\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t": types.IssueCardFragmentDoc,
+    "\n\t\tfragment IssuePagination on PageInfo {\n\t\t\thasPreviousPage\n\t\t\thasNextPage\n\t\t\tstartCursor\n\t\t\tendCursor\n\t\t}\n\t": types.IssuePaginationFragmentDoc,
 };
 
 /**
@@ -37,7 +39,11 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n\t  fragment IssueCard on Issue {\n      id\n      number\n      title\n      state\n      createdAt\n      comments {\n        totalCount\n      }\n      author {\n        login\n        avatarUrl\n      }\n    }\n  "): (typeof documents)["\n\t  fragment IssueCard on Issue {\n      id\n      number\n      title\n      state\n      createdAt\n      comments {\n        totalCount\n      }\n      author {\n        login\n        avatarUrl\n      }\n    }\n  "];
+export function gql(source: "\n\t\tfragment IssueCard on Issue {\n\t\t\tid\n\t\t\ttitle\n\t\t\tnumber\n\t\t\tstate\n\t\t\tbody\n\t\t\tcreatedAt\n\t\t\tcomments {\n\t\t\t\ttotalCount\n\t\t\t}\n\t\t\tauthor {\n\t\t\t\tavatarUrl(size: 32)\n\t\t\t\tlogin\n\t\t\t}\n\t\t\tlabels(first: 5) {\n\t\t\t\tnodes {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tcolor\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t"): (typeof documents)["\n\t\tfragment IssueCard on Issue {\n\t\t\tid\n\t\t\ttitle\n\t\t\tnumber\n\t\t\tstate\n\t\t\tbody\n\t\t\tcreatedAt\n\t\t\tcomments {\n\t\t\t\ttotalCount\n\t\t\t}\n\t\t\tauthor {\n\t\t\t\tavatarUrl(size: 32)\n\t\t\t\tlogin\n\t\t\t}\n\t\t\tlabels(first: 5) {\n\t\t\t\tnodes {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tcolor\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n\t\tfragment IssuePagination on PageInfo {\n\t\t\thasPreviousPage\n\t\t\thasNextPage\n\t\t\tstartCursor\n\t\t\tendCursor\n\t\t}\n\t"): (typeof documents)["\n\t\tfragment IssuePagination on PageInfo {\n\t\t\thasPreviousPage\n\t\t\thasNextPage\n\t\t\tstartCursor\n\t\t\tendCursor\n\t\t}\n\t"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

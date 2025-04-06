@@ -22120,7 +22120,7 @@ export type PullRequestTimelineConnection = {
 };
 
 /** An item in a pull request timeline */
-export type PullRequestTimelineItem = AssignedEvent | BaseRefDeletedEvent | BaseRefForcePushedEvent | ClosedEvent | Commit | CommitCommentThread | CrossReferencedEvent | DemilestonedEvent | DeployedEvent | DeploymentEnvironmentChangedEvent | HeadRefDeletedEvent | HeadRefForcePushedEvent | HeadRefRestoredEvent | IssueComment | LabeledEvent | LockedEvent | MergedEvent | MilestonedEvent | PullRequestReview | PullRequestReviewComment | PullRequestReviewThread | ReferencedEvent | RenamedTitleEvent | ReopenedEvent | ReviewDismissedEvent | ReviewRequestedEvent | ReviewRequestRemovedEvent | SubscribedEvent | UnassignedEvent | UnlabeledEvent | UnlockedEvent | UnsubscribedEvent | UserBlockedEvent;
+export type PullRequestTimelineItem = AssignedEvent | BaseRefDeletedEvent | BaseRefForcePushedEvent | ClosedEvent | Commit | CommitCommentThread | CrossReferencedEvent | DemilestonedEvent | DeployedEvent | DeploymentEnvironmentChangedEvent | HeadRefDeletedEvent | HeadRefForcePushedEvent | HeadRefRestoredEvent | IssueComment | LabeledEvent | LockedEvent | MergedEvent | MilestonedEvent | PullRequestReview | PullRequestReviewComment | PullRequestReviewThread | ReferencedEvent | RenamedTitleEvent | ReopenedEvent | ReviewDismissedEvent | ReviewRequestRemovedEvent | ReviewRequestedEvent | SubscribedEvent | UnassignedEvent | UnlabeledEvent | UnlockedEvent | UnsubscribedEvent | UserBlockedEvent;
 
 /** An edge in a connection. */
 export type PullRequestTimelineItemEdge = {
@@ -22132,7 +22132,7 @@ export type PullRequestTimelineItemEdge = {
 };
 
 /** An item in a pull request timeline */
-export type PullRequestTimelineItems = AddedToMergeQueueEvent | AddedToProjectEvent | AssignedEvent | AutomaticBaseChangeFailedEvent | AutomaticBaseChangeSucceededEvent | AutoMergeDisabledEvent | AutoMergeEnabledEvent | AutoRebaseEnabledEvent | AutoSquashEnabledEvent | BaseRefChangedEvent | BaseRefDeletedEvent | BaseRefForcePushedEvent | ClosedEvent | CommentDeletedEvent | ConnectedEvent | ConvertedNoteToIssueEvent | ConvertedToDiscussionEvent | ConvertToDraftEvent | CrossReferencedEvent | DemilestonedEvent | DeployedEvent | DeploymentEnvironmentChangedEvent | DisconnectedEvent | HeadRefDeletedEvent | HeadRefForcePushedEvent | HeadRefRestoredEvent | IssueComment | IssueTypeAddedEvent | IssueTypeChangedEvent | IssueTypeRemovedEvent | LabeledEvent | LockedEvent | MarkedAsDuplicateEvent | MentionedEvent | MergedEvent | MilestonedEvent | MovedColumnsInProjectEvent | ParentIssueAddedEvent | ParentIssueRemovedEvent | PinnedEvent | PullRequestCommit | PullRequestCommitCommentThread | PullRequestReview | PullRequestReviewThread | PullRequestRevisionMarker | ReadyForReviewEvent | ReferencedEvent | RemovedFromMergeQueueEvent | RemovedFromProjectEvent | RenamedTitleEvent | ReopenedEvent | ReviewDismissedEvent | ReviewRequestedEvent | ReviewRequestRemovedEvent | SubIssueAddedEvent | SubIssueRemovedEvent | SubscribedEvent | TransferredEvent | UnassignedEvent | UnlabeledEvent | UnlockedEvent | UnmarkedAsDuplicateEvent | UnpinnedEvent | UnsubscribedEvent | UserBlockedEvent;
+export type PullRequestTimelineItems = AddedToMergeQueueEvent | AddedToProjectEvent | AssignedEvent | AutoMergeDisabledEvent | AutoMergeEnabledEvent | AutoRebaseEnabledEvent | AutoSquashEnabledEvent | AutomaticBaseChangeFailedEvent | AutomaticBaseChangeSucceededEvent | BaseRefChangedEvent | BaseRefDeletedEvent | BaseRefForcePushedEvent | ClosedEvent | CommentDeletedEvent | ConnectedEvent | ConvertToDraftEvent | ConvertedNoteToIssueEvent | ConvertedToDiscussionEvent | CrossReferencedEvent | DemilestonedEvent | DeployedEvent | DeploymentEnvironmentChangedEvent | DisconnectedEvent | HeadRefDeletedEvent | HeadRefForcePushedEvent | HeadRefRestoredEvent | IssueComment | IssueTypeAddedEvent | IssueTypeChangedEvent | IssueTypeRemovedEvent | LabeledEvent | LockedEvent | MarkedAsDuplicateEvent | MentionedEvent | MergedEvent | MilestonedEvent | MovedColumnsInProjectEvent | ParentIssueAddedEvent | ParentIssueRemovedEvent | PinnedEvent | PullRequestCommit | PullRequestCommitCommentThread | PullRequestReview | PullRequestReviewThread | PullRequestRevisionMarker | ReadyForReviewEvent | ReferencedEvent | RemovedFromMergeQueueEvent | RemovedFromProjectEvent | RenamedTitleEvent | ReopenedEvent | ReviewDismissedEvent | ReviewRequestRemovedEvent | ReviewRequestedEvent | SubIssueAddedEvent | SubIssueRemovedEvent | SubscribedEvent | TransferredEvent | UnassignedEvent | UnlabeledEvent | UnlockedEvent | UnmarkedAsDuplicateEvent | UnpinnedEvent | UnsubscribedEvent | UserBlockedEvent;
 
 /** The connection type for PullRequestTimelineItems. */
 export type PullRequestTimelineItemsConnection = {
@@ -35398,21 +35398,44 @@ export type WorkflowsParametersInput = {
   workflows: Array<WorkflowFileReferenceInput>;
 };
 
-export type IssueCardFragment = { __typename?: 'Issue', id: string, number: number, title: string, state: IssueState, createdAt: any, comments: { __typename?: 'IssueCommentConnection', totalCount: number }, author?: { __typename?: 'Bot', login: string, avatarUrl: any } | { __typename?: 'EnterpriseUserAccount', login: string, avatarUrl: any } | { __typename?: 'Mannequin', login: string, avatarUrl: any } | { __typename?: 'Organization', login: string, avatarUrl: any } | { __typename?: 'User', login: string, avatarUrl: any } | null };
+export type IssueCardFragment = { __typename?: 'Issue', id: string, title: string, number: number, state: IssueState, body: string, createdAt: any, comments: { __typename?: 'IssueCommentConnection', totalCount: number }, author?: { __typename?: 'Bot', avatarUrl: any, login: string } | { __typename?: 'EnterpriseUserAccount', avatarUrl: any, login: string } | { __typename?: 'Mannequin', avatarUrl: any, login: string } | { __typename?: 'Organization', avatarUrl: any, login: string } | { __typename?: 'User', avatarUrl: any, login: string } | null, labels?: { __typename?: 'LabelConnection', nodes?: Array<{ __typename?: 'Label', id: string, name: string, color: string } | null> | null } | null };
+
+export type IssuePaginationFragment = { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor?: string | null, endCursor?: string | null };
 
 export const IssueCardFragmentDoc = gql`
     fragment IssueCard on Issue {
   id
-  number
   title
+  number
   state
+  body
   createdAt
   comments {
     totalCount
   }
   author {
+    avatarUrl(size: 32)
     login
-    avatarUrl
+  }
+  labels(first: 5) {
+    nodes {
+      id
+      name
+      color
+    }
   }
 }
     `;
+export const IssuePaginationFragmentDoc = gql`
+    fragment IssuePagination on PageInfo {
+  hasPreviousPage
+  hasNextPage
+  startCursor
+  endCursor
+}
+    `;name?: 'User', avatarUrl: any, login: string } | null, labels?: { __typename?: 'LabelConnection', nodes?: Array<{ __typename?: 'Label', id: string, name: string, color: string } | null> | null } | null } & { ' $fragmentName'?: 'IssueCardFragment' };
+
+export type IssuePaginationFragment = { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor?: string | null, endCursor?: string | null } & { ' $fragmentName'?: 'IssuePaginationFragment' };
+
+export const IssueCardFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"IssueCard"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Issue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"comments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}}]}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"avatarUrl"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"size"},"value":{"kind":"IntValue","value":"32"}}]},{"kind":"Field","name":{"kind":"Name","value":"login"}}]}},{"kind":"Field","name":{"kind":"Name","value":"labels"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"5"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"color"}}]}}]}}]}}]} as unknown as DocumentNode<IssueCardFragment, unknown>;
+export const IssuePaginationFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"IssuePagination"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PageInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}}]}}]} as unknown as DocumentNode<IssuePaginationFragment, unknown>;

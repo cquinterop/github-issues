@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import type { CodegenConfig } from '@graphql-codegen/cli';
-import { VITE_API_BASE_URL, GITHUB_API_KEY } from './src/config/env';
+import { VITE_API_BASE_URL,  VITE_GITHUB_API_KEY } from './src/config/env';
 
 const config: CodegenConfig = {
 	overwrite: true,
@@ -8,7 +8,7 @@ const config: CodegenConfig = {
 		{
 			[`${VITE_API_BASE_URL}/graphql`]: {
 				headers: {
-					Authorization: `Bearer ${GITHUB_API_KEY}`,
+					Authorization: `Bearer ${ VITE_GITHUB_API_KEY}`,
 					'User-Agent': 'IssueTracker',
 				},
 			},
