@@ -1,1 +1,1 @@
-export const ISSUES_PER_PAGE = 10;
+export const ISSUES_PER_PAGE = 1;

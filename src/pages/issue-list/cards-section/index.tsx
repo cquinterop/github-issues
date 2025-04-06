@@ -19,6 +19,7 @@ const CardsSection = () => {
 		},
 	});
 	const { nodes, issueCount, pageInfo } = data.search;
+	const totalPages = Math.ceil(issueCount / ISSUES_PER_PAGE);
 
 	return (
 		<div className="mt-8 space-y-6">
@@ -33,7 +34,10 @@ const CardsSection = () => {
 				))}
 			</div>
 
-			<IssuePagination pageInfo={pageInfo} />
+			<IssuePagination
+				pageInfo={pageInfo}
+				totalPages={totalPages}
+			/>
 		</div>
 	);
 };
@@ -56,7 +60,7 @@ CardsSection.query = gql`
       }
     }
   }
-	${IssueCard.fragments.nodes}
+	${IssueCard.fragments.issue}
 	${IssuePagination.fragments.pageInfo}
 `;
 

@@ -6,9 +6,10 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface IssuePaginationProps {
 	pageInfo: IssuePaginationFragment;
+	totalPages: number;
 }
 
-const IssuePagination = ({ pageInfo }: Readonly<IssuePaginationProps>) => {
+const IssuePagination = ({ pageInfo, totalPages }: Readonly<IssuePaginationProps>) => {
 	const { hasPreviousPage, hasNextPage, startCursor, endCursor } = pageInfo;
 	const { page, handlePreviousPage, handleNextPage } = usePagination();
 
@@ -22,7 +23,9 @@ const IssuePagination = ({ pageInfo }: Readonly<IssuePaginationProps>) => {
 			>
 				<ArrowLeft /> Previous
 			</Button>
-			<span className="text-muted-foreground text-sm">Page {page}</span>
+			<span className="text-muted-foreground text-sm">
+				Page {page} of {totalPages}
+			</span>
 			<Button
 				className="cursor-pointer"
 				disabled={!hasNextPage}
