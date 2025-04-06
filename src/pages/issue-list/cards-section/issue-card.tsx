@@ -7,12 +7,31 @@ import { Link } from 'react-router';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { AvatarImage } from '@radix-ui/react-avatar';
+import { useFilterIssue } from '@/hooks/useFilterIssue';
 
 interface IssueCardProps {
 	issue: IssueCardFragment;
 }
 
+function getHighlightedJSXSnippet(body: string, lookup: string, contextLength = 100): (string | JSX.Element)[] | null {
+	if (!lookup) return body;
+
+	const escaped = lookup.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	const regex = new RegExp(escaped, 'gi');
+	const match = body.match(regex);
+	if (!match) return body;
+
+	const first = body.search(regex);
+	const start = Math.max(0, first - contextLength);
+	const end = Math.min(body.length, first + lookup.length + contextLength);
+	const snippet = body.slice(start, end);
+
+	return snippet.split(regex).flatMap((part, i, arr) => (i < arr.length - 1 ? [part, <mark key={i}>{match[0]}</mark>] : [part]));
+}
+
 const IssueCard = ({ issue }: Readonly<IssueCardProps>) => {
+	const { body, title } = useFilterIssue();
+
 	return (
 		<Card className="transition-all hover:shadow-md">
 			<CardHeader>
@@ -23,15 +42,19 @@ const IssueCard = ({ issue }: Readonly<IssueCardProps>) => {
 							className="hover:underline"
 							to={`/issues/${issue.number}`}
 						>
-							{issue.title}
+							{getHighlightedJSXSnippet(issue.title, title as string)}
 						</Link>
 					</CardTitle>
 				</div>
 				<div className="mt-2 flex gap-2">
-					{issue?.labels?.nodes?.length &&
+					{!!issue?.labels?.nodes?.length &&
 						issue.labels.nodes.map((label) => (
 							<Badge
-								className={`border-[#${label?.color}] text-[#${label?.color}] bg-[#${label?.color}]/20`}
+								style={{
+									color: `#${label?.color}`,
+									borderColor: `#${label?.color}`,
+									backgroundColor: `#${label?.color}33`,
+								}}
 								key={label?.id}
 							>
 								{label?.name}
@@ -41,7 +64,7 @@ const IssueCard = ({ issue }: Readonly<IssueCardProps>) => {
 			</CardHeader>
 			<CardContent>
 				<div className="text-muted-foreground text-sm">
-					<p className="line-clamp-3">{issue.body}</p>
+					<p className="line-clamp-3">{getHighlightedJSXSnippet(issue.body, body as string)}</p>
 				</div>
 			</CardContent>
 			<CardFooter>

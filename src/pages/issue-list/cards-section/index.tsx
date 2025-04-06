@@ -3,20 +3,16 @@ import IssueCard from '@/pages/issue-list/cards-section/issue-card';
 import IssuePagination from '@/pages/issue-list/cards-section/issue-pagination';
 import { usePagination } from '@/hooks/usePagination';
 import { ISSUES_PER_PAGE } from '@/constants/issues';
+import { useFilterIssue } from '@/hooks/useFilterIssue';
 
 const CardsSection = () => {
-	const query = {
-		is: 'issue',
-		archived: 'false',
-		repo: 'facebook/react',
-		sort: 'created-desc',
-	};
 	// eslint-disable-next-line no-debugger
 	debugger;
+	const { query } = useFilterIssue();
 	const { startCursor, endCursor, page } = usePagination();
 	const { data } = useSuspenseQuery(CardsSection.query, {
 		variables: {
-			query: Object.entries(query).reduce((acc, [key, value]) => `${key}:${value} ${acc}`, ''),
+			query,
 			endCursor,
 			startCursor,
 			page,
