@@ -13,12 +13,13 @@ const CardsSection = () => {
 	};
 	// eslint-disable-next-line no-debugger
 	debugger;
-	const { startCursor: before, endCursor: after } = usePagination();
+	const { startCursor, endCursor, page } = usePagination();
 	const { data } = useSuspenseQuery(CardsSection.query, {
 		variables: {
 			query: Object.entries(query).reduce((acc, [key, value]) => `${key}:${value} ${acc}`, ''),
-			after,
-			before,
+			endCursor,
+			startCursor,
+			page,
 		},
 	});
 	const { nodes, issueCount, pageInfo } = data.search;
@@ -42,13 +43,13 @@ const CardsSection = () => {
 };
 
 CardsSection.query = gql`
-  query CardsSection($query: String!, $after: String, $before: String) {
+  query CardsSection($query: String!, $endCursor: String, $startCursor: String) {
 		search(
       query: $query
       type: ISSUE
       last: ${ISSUES_PER_PAGE}
-      after: $after
-			before: $before
+      after: $endCursor
+			before: $startCursor
     ) {
       issueCount
 			nodes {

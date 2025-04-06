@@ -1,7 +1,7 @@
 import { type PropsWithChildren, useMemo } from 'react';
 import { ApolloClient, ApolloProvider } from '@apollo/client';
 import { VITE_GITHUB_API_KEY, VITE_API_BASE_URL } from '@/config/env';
-import { cache } from '@/lib/apollo-cache';
+import { cache } from '@/lib/cache';
 
 const createApolloClient = () => {
 	return new ApolloClient({
