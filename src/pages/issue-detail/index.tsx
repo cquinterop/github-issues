@@ -1,6 +1,6 @@
 import { gql, useSuspenseQuery } from '@apollo/client';
 import { useNavigate, useParams } from 'react-router';
-import IssueDetailCard from '@/pages/issue-detail/issue-section/Issue-detail-card';
+import IssueDetailCard from '@/pages/issue-detail/issue-section/issue-detail-card';
 import IssueHeading from '@/pages/issue-detail/issue-section/issue-heading';
 import { IssueDetailPageQuery, IssueDetailPageQueryVariables } from '@/__generated__/graphql';
 import { Button } from '@/components/ui/button';
@@ -15,8 +15,7 @@ import EmptyState from '@/components/shared/empty-state';
 const IssueDetailPage = () => {
 	const { issueId } = useParams();
 	const navigate = useNavigate();
-	// eslint-disable-next-line no-debugger
-	debugger;
+
 	const { data, fetchMore } = useSuspenseQuery<IssueDetailPageQuery, IssueDetailPageQueryVariables>(IssueDetailPage.query, {
 		variables: { number: Number(issueId), after: null },
 	});
@@ -35,10 +34,10 @@ const IssueDetailPage = () => {
 						issue: {
 							...prev.repository?.issue,
 							comments: {
-								...prev.repository.issue.comments,
-								nodes: [...prev.repository.issue.comments.nodes, ...fetchMoreResult.repository.issue.comments.nodes],
+								...prev?.repository?.issue?.comments,
+								nodes: [...(prev?.repository?.issue?.comments.nodes ?? []), ...(fetchMoreResult?.repository?.issue?.comments.nodes ?? [])],
 								pageInfo: {
-									...fetchMoreResult.repository.issue.comments.pageInfo,
+									...fetchMoreResult?.repository?.issue?.comments.pageInfo,
 								},
 							},
 						},

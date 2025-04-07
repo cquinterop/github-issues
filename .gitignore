@@ -25,6 +25,3 @@ dist-ssr
 
 # env files
 .env*
-
-# codegen files
-src/__generated__/*

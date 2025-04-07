@@ -1,7 +1,15 @@
 import { gql } from '@apollo/client';
 import CommentDetailCard from './comment-detail-card';
+import { IssueComment } from '@/__generated__/graphql';
 
-const CommentSection = ({ comments }) => {
+interface CommentSectionProps {
+	comments: {
+		totalCount: number;
+		nodes: Partial<IssueComment>[];
+	};
+}
+
+const CommentSection = ({ comments }: Readonly<CommentSectionProps>) => {
 	return (
 		<>
 			<h2 className="mb-4 text-xl font-semibold">Comments ({comments.totalCount})</h2>

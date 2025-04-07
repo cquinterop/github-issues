@@ -6,10 +6,9 @@ import { ISSUES_PER_PAGE } from '@/constants/issues';
 import { useFilterIssue } from '@/hooks/useFilterIssue';
 import EmptyState from '@/components/shared/empty-state';
 import { useMemo } from 'react';
+import { IssueCardFragment } from '@/__generated__/graphql';
 
 const CardsSection = () => {
-	// eslint-disable-next-line no-debugger
-	debugger;
 	const { query } = useFilterIssue();
 	const { startCursor, endCursor, page } = usePagination();
 	const { data } = useSuspenseQuery(CardsSection.query, {
@@ -33,7 +32,7 @@ const CardsSection = () => {
 			<p className="text-muted-foreground text-sm">Found {issueCount} issues matching your criteria</p>
 
 			<div className="space-y-4">
-				{nodes?.map((issue) => (
+				{nodes?.map((issue: IssueCardFragment) => (
 					<IssueCard
 						issue={issue}
 						key={issue?.id}

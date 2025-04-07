@@ -1,10 +1,11 @@
+import { Issue } from '@/__generated__/graphql';
 import { Badge } from '@/components/ui/badge';
 import { gql } from '@apollo/client';
 
 interface IssueHeadingProps {
-	number: number;
-	title: string;
-	state: string;
+	number: Issue['number'];
+	title: Issue['title'];
+	state: Issue['state'];
 }
 
 const IssueHeading = ({ number, title, state }: IssueHeadingProps) => {

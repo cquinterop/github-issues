@@ -1,54 +1,55 @@
-# React + TypeScript + Vite
+# Github Issue Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A performant and modern GitHub issue comments viewer, built with a strong focus on type safety, modularity, and great DX.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** – Modern UI library for building component-based interfaces
+- **TypeScript** – Strongly typed JavaScript for better reliability and tooling
+- **Vite** – Lightning-fast build tool and development server
+- **GraphQL** – Declarative data fetching with precise queries
+- **Apollo Client** – Caching, pagination, and data management for GraphQL
+- **GraphQL Code Generator** – Automatic TypeScript types and React hooks based on your GraphQL schema
+- **Fragment Colocation** – Promotes modularity and reuse by colocating GraphQL fragments with components that use them
+- **Suspense + `useSuspenseQuery`** – Enables declarative data loading with Suspense
+- **Incremental Fetching / Pagination** – Efficient loading of issue comments using `fetchMore`
+- **Custom Intersection Observer Hook** – Enables infinite scroll based on component visibility
+- **Caching** – Leverages Apollo’s normalized cache to reduce redundant fetches
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Data management with URL params with Nuqs
+- Infinite scroll to load all comments for a GitHub issue
+- Fragment colocation for modular, self-contained data dependencies
+- Suspense-first architecture with React's concurrent features
+- Custom `CommentCard` component rendering Markdown with avatar, timestamp, and metadata
+- Query state management using Apollo cache and `fetchMore`
+- Fully typed with auto-generated types from your GraphQL schema
+- SSR-friendly (Server Side Rendering ready)
+- Lazy loading & on-demand data fetching for optimal performance
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+
+## Setup
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Run GraphQL Codegen
+npm run codegen
+
+# 3. Start the dev server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Make sure your .env contains the necessary GitHub token if accessing the GitHub API.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+VITE_API_BASE_URL=https://api.github.com
+VITE_GITHUB_API_KEY=<your_token>
+```
+
+## Future Improvements
+- Add SSR integration with streaming
+- Improve accessibility across components
+- Add support for authenticated GitHub actions
