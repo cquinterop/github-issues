@@ -15,6 +15,7 @@ const createApolloClient = () => {
 				fetchPolicy: 'cache-first',
 			},
 		},
+		//dataMasking: true, Implement if there's time
 	});
 };
 

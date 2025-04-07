@@ -49,7 +49,7 @@ const IssueCard = ({ issue }: Readonly<IssueCardProps>) => {
 				</div>
 			</CardContent>
 			<CardFooter>
-				<div className="flex w-full justify-between text-sm">
+				<div className="flex w-full justify-between text-sm break-all">
 					<div className="flex items-center gap-2">
 						<Link
 							className="font-medium"
@@ -65,7 +65,7 @@ const IssueCard = ({ issue }: Readonly<IssueCardProps>) => {
 							</Avatar>
 						</Link>
 						<span>
-							Issue #{issue.number} ⸱ Opened {formatDistanceToNow(new Date(issue.createdAt))} ago by
+							Issue #{issue.number} ⸱ Opened {formatDistanceToNow(new Date(issue.createdAt))} ago by{' '}
 							<Link
 								className="underline"
 								target="_blank"

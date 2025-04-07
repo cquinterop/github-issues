@@ -1,14 +1,13 @@
 import { Badge } from '@/components/ui/badge';
-import { MessageSquare } from 'lucide-react';
+import { gql } from '@apollo/client';
 
 interface IssueHeadingProps {
 	number: number;
 	title: string;
 	state: string;
-	totalCount: number;
 }
 
-const IssueHeading = ({ number, title, state, totalCount }: IssueHeadingProps) => {
+const IssueHeading = ({ number, title, state }: IssueHeadingProps) => {
 	return (
 		<>
 			<h1 className="mb-2 text-2xl font-bold">
@@ -18,20 +17,26 @@ const IssueHeading = ({ number, title, state, totalCount }: IssueHeadingProps) =
 				<Badge
 					className={
 						{
-							OPEN: 'bg-green-600',
-							CLOSED: 'bg-gray-600',
+							OPEN: 'bg-green-400',
+							CLOSED: 'bg-purple-400',
 						}[state]
 					}
 				>
 					{state}
 				</Badge>
-				<div className="text-muted-foreground flex items-center gap-1 text-sm">
-					<MessageSquare className="h-4 w-4" />
-					<span>{totalCount} comments</span>
-				</div>
 			</div>
 		</>
 	);
+};
+
+IssueHeading.fragments = {
+	issue: gql`
+		fragment IssueHeading on Issue {
+			number
+			title
+			state
+		}
+	`,
 };
 
 export default IssueHeading;

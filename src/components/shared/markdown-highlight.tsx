@@ -16,6 +16,8 @@ const MarkdownHighlight = ({ markdown }: MarkdownHighlightProps) => {
 						<SyntaxHighlighter
 							PreTag="div"
 							language={match[1]}
+							// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+							// @ts-ignore
 							style={dracula}
 							{...props}
 						>

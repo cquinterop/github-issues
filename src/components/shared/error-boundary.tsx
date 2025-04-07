@@ -35,8 +35,6 @@ const ErrorFallback = ({ children }: Readonly<PropsWithChildren>) => {
 					</div>
 				</div>
 			)}
-			/* 			onReset={reset}
-			 */
 		>
 			{children}
 		</ErrorBoundary>

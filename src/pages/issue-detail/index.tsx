@@ -1,14 +1,18 @@
 import { gql, useSuspenseQuery } from '@apollo/client';
-import { Link, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import IssueDetailCard from '@/pages/issue-detail/issue-section/Issue-detail-card';
-import CommentDetailCard from '@/pages/issue-detail/comment-section/comment-detail-card';
 import IssueHeading from '@/pages/issue-detail/issue-section/issue-heading';
 import { IssueDetailPageQuery, IssueDetailPageQueryVariables } from '@/__generated__/graphql';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { Suspense } from 'react';
+import Spinner from '@/components/shared/spinner';
+import ErrorFallback from '@/components/shared/error-boundary';
+import CommentSection from './comment-section';
 
 const IssueDetailPage = () => {
 	const { issueId } = useParams();
+	const navigate = useNavigate();
 	// eslint-disable-next-line no-debugger
 	debugger;
 	const { data } = useSuspenseQuery<IssueDetailPageQuery, IssueDetailPageQueryVariables>(IssueDetailPage.query, {
@@ -23,44 +27,36 @@ const IssueDetailPage = () => {
 			</div>
 		);
 	}
-
+	console.log(data);
 	const { issue } = data.repository;
 
 	return (
-		<div className="space-y-8">
-			<Link to="/">
-				<Button
-					className="mx- mb-6 cursor-pointer"
-					variant="link"
-				>
-					<ArrowLeft className="h-4 w-4" /> Back to issues
-				</Button>
-			</Link>
-
-			<IssueHeading
-				number={issue.number}
-				state={issue.state}
-				title={issue.title}
-				totalCount={issue.comments.totalCount}
-			/>
-
-			<IssueDetailCard data={issue} />
-
-			<h2 className="mb-4 text-xl font-semibold">Comments ({issue.comments.totalCount})</h2>
-			{!!issue.comments.totalCount && (
-				<div className="space-y-6">
-					{issue.comments.nodes?.map(
-						(comment) =>
-							comment && (
-								<CommentDetailCard
-									data={comment}
-									key={comment.id}
-								/>
-							)
-					)}
+		<ErrorFallback>
+			<Suspense fallback={<Spinner />}>
+				<div className="space-y-8">
+					<Button
+						className="mx- mb-6 cursor-pointer"
+						variant="link"
+						onClick={() => navigate(-1)}
+					>
+						<ArrowLeft className="h-4 w-4" /> Back to issues
+					</Button>
+					<IssueHeading
+						number={issue.number}
+						state={issue.state}
+						title={issue.title}
+					/>
+					<IssueDetailCard
+						data={{
+							body: issue.body,
+							createdAt: issue.createdAt,
+							author: issue.author,
+						}}
+					/>
+					<CommentSection comments={issue?.comments} />
 				</div>
-			)}
-		</div>
+			</Suspense>
+		</ErrorFallback>
 	);
 };
 
@@ -69,21 +65,17 @@ IssueDetailPage.query = gql`
 		repository(owner: "facebook", name: "react") {
 			issue(number: $number) {
 				id
-				title
-				state
-				number
+				...IssueHeading
 				...IssueDetailCard
-				comments(first: 5) {
-					totalCount
-					nodes {
-						...CommentDetailCard
-					}
+				comments(first: 3) {
+					...CommentSection
 				}
 			}
 		}
 	}
+	${IssueHeading.fragments.issue}
 	${IssueDetailCard.fragments.issue}
-	${CommentDetailCard.fragments.issueComment}
+	${CommentSection.fragments.issueCommentConnection}
 `;
 
 export default IssueDetailPage;

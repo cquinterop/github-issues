@@ -11,7 +11,7 @@ import { useFilterIssue } from '@/hooks/useFilterIssue';
 const filterSchema = z.object({
 	title: z.string().optional(),
 	body: z.string().optional(),
-	state: z.enum(['open', 'closed', '']).optional(),
+	state: z.string().optional(),
 });
 
 type FilterValues = z.input<typeof filterSchema>;
@@ -28,9 +28,9 @@ export default function FilterSection() {
 	const form = useForm<FilterValues>({
 		resolver: zodResolver(filterSchema),
 		defaultValues: {
-			title,
-			body,
-			state,
+			title: title ?? '',
+			body: body ?? '',
+			state: state ?? '',
 		},
 	});
 

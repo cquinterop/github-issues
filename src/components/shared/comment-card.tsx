@@ -40,7 +40,7 @@ const CommentCard = <T extends Partial<IssueComment>>({ data }: Readonly<Comment
 				</div>
 			</CardHeader>
 			<CardContent>
-				<div className="prose prose-sm dark:prose-invert max-w-none">
+				<div className="prose prose-sm dark:prose-invert max-w-none break-all">
 					<MarkdownHighlight markdown={data.body as string} />
 				</div>
 			</CardContent>
