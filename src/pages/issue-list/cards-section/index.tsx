@@ -4,6 +4,8 @@ import IssuePagination from '@/pages/issue-list/cards-section/issue-pagination';
 import { usePagination } from '@/hooks/usePagination';
 import { ISSUES_PER_PAGE } from '@/constants/issues';
 import { useFilterIssue } from '@/hooks/useFilterIssue';
+import EmptyState from '@/components/shared/empty-state';
+import { useMemo } from 'react';
 
 const CardsSection = () => {
 	// eslint-disable-next-line no-debugger
@@ -18,8 +20,13 @@ const CardsSection = () => {
 			page,
 		},
 	});
+
 	const { nodes, issueCount, pageInfo } = data.search;
-	const totalPages = Math.ceil(issueCount / ISSUES_PER_PAGE);
+	const totalPages = useMemo(() => Math.ceil(issueCount / ISSUES_PER_PAGE), []);
+
+	if (!nodes.length) {
+		return <EmptyState />;
+	}
 
 	return (
 		<div className="mt-8 space-y-6">

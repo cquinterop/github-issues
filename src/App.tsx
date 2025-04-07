@@ -4,6 +4,7 @@ import DataProvider from '@/providers/data-provider';
 import LayoutPage from '@/components/layout';
 import IssueDetailPage from './pages/issue-detail';
 import { NuqsAdapter } from 'nuqs/adapters/react-router/v7';
+import NotFoundPage from '@/pages/not-found';
 
 const router = createBrowserRouter([
 	{
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
 	{
 		path: '/issue/:issueId',
 		element: <IssueDetailPage />,
+	},
+	{
+		path: '*',
+		element: <NotFoundPage />,
 	},
 ]);
 

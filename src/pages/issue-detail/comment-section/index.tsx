@@ -36,6 +36,10 @@ CommentSection.fragments = {
 					url
 				}
 			}
+			pageInfo {
+				endCursor
+				hasNextPage
+			}
 		}
 	`,
 };
